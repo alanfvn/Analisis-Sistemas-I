@@ -1,4 +1,4 @@
-import { Outlet, Navigate} from "react-router-dom";
+import {Outlet, Navigate} from "react-router-dom";
 import {getCookie} from './util/CookieMan';
 
 function PRoute(){
@@ -8,7 +8,7 @@ function PRoute(){
 
 function RRoute(){
     const isAuth = getCookie('user') ?? false;
-    return isAuth ? <Navigate to="/menu "/> : <Outlet/>
+    return isAuth ? <Navigate to="/comercio"/> : <Outlet/>
 }
 
 export {PRoute, RRoute} 
