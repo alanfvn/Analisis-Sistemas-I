@@ -44,7 +44,6 @@ function LoginModal(props){
                 <Modal.Header closeButton>
                     <Modal.Title>Iniciar sesión</Modal.Title>
                 </Modal.Header>
-                
                 <Modal.Body>
                     <Row>
                         <Col lg={8} className="m-auto ">

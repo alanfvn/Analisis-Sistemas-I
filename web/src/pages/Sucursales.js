@@ -1,17 +1,21 @@
-import { Button,Form, Container, Row, Col, Table} from 'react-bootstrap';
+import React from 'react';
 import Navigation from './components/Navigation';
+import SucursalModal from './modals/SucursalModal';
+
+import { Button,Form, Container, Row, Col, Table} from 'react-bootstrap';
 import { useLocation,} from 'react-router-dom';
 
 function Sucursales(){
 
+    const [show, setShow] = React.useState(false);
     const loc = useLocation();
+
     return(
         <div>
             <Navigation location={loc}/>
             <Container>
                 <Row>
                         <h1 className="shadow-sm mt-5 mb-5 p-3 text-center rounded">Sucursales</h1>
-
                         <Col lg={7} md={6} sm={12} className="p-3 mb-5 shadow-sm rounded">
                             <Form onSubmit={()=>console.log('hi')}>
                                 <Row>
@@ -59,7 +63,7 @@ function Sucursales(){
                                 <Row>
                                     <Col>
                                         <Form.Group className='mb-3'>
-                                            <Form.Label>Ingresa el nombre del comercio</Form.Label>
+                                            <Form.Label>Ingresa el nombre de la sucursal</Form.Label>
                                             <Form.Control
                                                 name="nombre"
                                                 onChange
@@ -93,7 +97,7 @@ function Sucursales(){
                                     <td>Mark</td>
                                     <td>Otto</td>
                                     <td className='text-center'>
-                                        <Button variant="secondary" onClick={()=>null}>Editar</Button>
+                                        <Button variant="secondary" onClick={()=>setShow(true)}>Editar</Button>
                                     </td>
                                     <td className='text-center'>
                                         <Button variant="danger" onClick={()=>null}>Borrar</Button>
@@ -101,7 +105,8 @@ function Sucursales(){
                                 </tr>        
                             </tbody>
                         </Table>
-                    </Row>      
+                    </Row>   
+            <SucursalModal shown={show} close={()=>setShow(false)}/>
             </Container>
         </div>
     );

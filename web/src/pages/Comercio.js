@@ -1,10 +1,17 @@
-import { Button,Form, Container, Row, Col, Table} from 'react-bootstrap';
+import React from 'react';
 import Navigation from './components/Navigation';
+import ComercioModal from './modals/ComercioModal';
+
+import { Button,Form, Container, Row, Col, Table} from 'react-bootstrap';
 import { useLocation,} from 'react-router-dom';
 
 function Comercio(){
 
     const loc = useLocation();
+    const [show, setShow] = React.useState(false);
+
+
+    
     return(
         <div>
             <Navigation location={loc}/>
@@ -65,7 +72,7 @@ function Comercio(){
                                     <td>Mark</td>
                                     <td>Otto</td>
                                     <td className='text-center'>
-                                        <Button variant="secondary" onClick={()=>null}>Editar</Button>
+                                        <Button variant="secondary" onClick={()=>setShow(true)}>Editar</Button>
                                     </td>
                                     <td className='text-center'>
                                         <Button variant="danger" onClick={()=>null}>Borrar</Button>
@@ -73,7 +80,10 @@ function Comercio(){
                                 </tr>        
                             </tbody>
                         </Table>
-                    </Row>      
+                    </Row>   
+
+                    {/* modal */}
+                    <ComercioModal shown={show} close={()=>setShow(false)}/>
             </Container>
         </div>
     );
