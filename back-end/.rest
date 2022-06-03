@@ -1,0 +1,22 @@
+@API = http://192.168.1.100:3001/api 
+
+###GET SHOPS
+GET {{API}}/get_shops
+###GET CATEGORIES
+GET {{API}}/get_categories
+###GET LOCATIONS
+GET {{API}}/get_locations
+###GET LOCATIONS
+GET {{API}}/get_sucursals
+###GET LOCATIONS
+GET {{API}}/get_quejas
+
+
+###POst
+POST {{API}}/login
+Content-Type: application/json
+
+{
+    "user": "alan",  
+    "password": "alan123"
+}

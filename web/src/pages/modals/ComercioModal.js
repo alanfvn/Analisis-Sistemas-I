@@ -1,30 +1,46 @@
 import React from 'react'
+import HttpMan from '../../util/HttpMan';
+
+
 import {Modal, Button, Form, Row, Col} from 'react-bootstrap'
 import {useNavigate} from 'react-router-dom';
 
 function ComercioModal(props){
     //props data.
+    const [data, setData] = React.useState({});
     const {shown, close, comercio} = props;
     const nav = useNavigate();
-
-
+    
     const hideForm = () => { setData({}); close()};
     //data control.
-    const [data, setData] = React.useState({});
-
+    
     const setValues = (e) => {
         const {name, value} = e.target;
-        setData({...data, [name]: value,"error": false});
+        setData({...data, [name]: value});
     }
     //submit control.
-    const submit = () => {
-        const {owners, cname} = data;
-        if(!owners || !cname){
-            setData({ ...data, "error": true});
-            return;
-        }
-        nav('/comercio');
+    const submit = async () => {
+        const {id, comercio, propietarios} = data;
+        await HttpMan.post('/post_comercio', {
+            id,
+            comercio,
+            propietarios
+        })
+        nav('/');
     }
+
+    const cargar = React.useCallback(()=>{
+        setData({
+            "id": comercio.id_comercio,
+            "comercio": comercio.nombre_comercio,
+            "propietarios": comercio.propietarios,
+        });
+    }, [comercio]);
+
+    React.useEffect(()=>{
+        cargar();
+    }, [cargar]);
+
 
     return (
             <Modal
@@ -42,17 +58,26 @@ function ComercioModal(props){
                             <Form>
                                 <Form.Group className='mb-3'>
                                     <Form.Label>ID Comercio</Form.Label>
-                                    <Form.Control name="id" disabled={true}/>
+                                    <Form.Control 
+                                        name="id" 
+                                        defaultValue={comercio.id_comercio}
+                                        disabled={true}
+                                    />
                                 </Form.Group>
                                 <Form.Group className='mb-3'>
                                     <Form.Label>Nombre de comercio:</Form.Label>
-                                    <Form.Control name="cname" onChange={(e)=>setValues(e)}/>
+                                    <Form.Control 
+                                        name="comercio" 
+                                        defaultValue={comercio.nombre_comercio}
+                                        onChange={(e)=>setValues(e)}
+                                    />
                                 </Form.Group>
                                 <Form.Group className='mb-3'>
                                     <Form.Label>Dueños:</Form.Label>
                                     <Form.Control 
-                                        name="owners" 
+                                        name="propietarios" 
                                         as="textarea"
+                                        defaultValue={comercio.propietarios}
                                         onChange={(e)=>setValues(e)} 
                                     />
                                 </Form.Group>

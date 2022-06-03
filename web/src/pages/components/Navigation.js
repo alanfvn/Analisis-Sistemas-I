@@ -53,7 +53,6 @@ function Navigation({location}){
                                     <NavDropdown.Item href="/comercio">Comercios</NavDropdown.Item>
                                     <NavDropdown.Item href="/sucursales">Sucursales</NavDropdown.Item>
                                 </NavDropdown>
-                                <Nav.Link href="/about">Acerca de</Nav.Link>
                             </>
                         }
                     </Nav>

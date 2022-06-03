@@ -1,4 +1,7 @@
 import React from 'react'
+import HttpMan from '../../util/HttpMan';
+
+
 import {Modal, Button, Form, Row, Col} from 'react-bootstrap'
 import {setCookie} from '../../util/CookieMan';
 import {useNavigate} from 'react-router-dom';
@@ -20,17 +23,27 @@ function LoginModal(props){
         });
     }
     //submit control.
-    const submit = () => {
+    const submit = async () => {
         const {user, pass} = data;
+        let username;
 
-        if(!user || !pass){
+        try{
+            const resp = await HttpMan.post('/login', {
+                'user': user,
+                'password': pass,
+            });
+            username = resp.data.username;
+
+        }catch(err){}
+        
+        if(!username){
             setData({
                 ...data,
                 "error": true,
             });
             return;
         }
-        setCookie('user', "alan");
+        setCookie('user', username);
         nav('/comercio');
     }
 
