@@ -1,0 +1,12 @@
+.footer{
+    padding-top: 5%;
+    margin-top: auto;
+  }
+  
+  
+  .sub-footer{
+    color: white;
+    background-color: rgb(33, 37, 41);
+    padding-top: 6em;
+    min-height: 50px;
+  }

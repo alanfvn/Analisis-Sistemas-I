@@ -1,5 +1,7 @@
 import React from 'react';
 import Navigation from './components/Navigation';
+import Footer from './components/Footer';
+
 import ComercioModal from './modals/ComercioModal';
 import HttpMan from '../util/HttpMan';
 
@@ -146,6 +148,7 @@ function Comercio(){
                     {/* modal */}
                     <ComercioModal shown={show} comercio={form} close={()=>setShow(false)}/>
             </Container>
+            <Footer/>
         </div>
     );
 }

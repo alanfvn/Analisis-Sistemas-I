@@ -1,6 +1,8 @@
 import React from 'react'
 import QuejaModal from './modals/QuejaModal'
 import Navigation from './components/Navigation';
+import Footer from './components/Footer';
+
 import HttpMan from '../util/HttpMan';
 import {GT_FORMAT, tryParseDate, tryParseNum} from '../util/DUtil';
 
@@ -241,6 +243,7 @@ function Quejas(){
                 </Row> 
                 <QuejaModal shown={show} queja={form} close={()=>setShow(false)}/>
             </Container>
+            <Footer/>
         </div>
     );
 }

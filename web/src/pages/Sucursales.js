@@ -1,5 +1,6 @@
 import React from 'react';
 import Navigation from './components/Navigation';
+import Footer from './components/Footer';
 import HttpMan from '../util/HttpMan';
 
 import { Button,Form, Container, Row, Col, Table} from 'react-bootstrap';
@@ -201,6 +202,7 @@ function Sucursales(){
                     </Table>
                 </Row>   
             </Container>
+            <Footer/>
         </div>
     );
 }
