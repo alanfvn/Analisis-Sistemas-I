@@ -2,7 +2,7 @@ import React from 'react'
 import QuejaModal from './modals/QuejaModal'
 import Navigation from './components/Navigation';
 import HttpMan from '../util/HttpMan';
-import GT_FORMAT from '../util/Util';
+import {GT_FORMAT, tryParseDate, tryParseNum} from '../util/DUtil';
 
 import { getDepartamentos,getMunicipios } from '../util/CacheMan';
 
@@ -36,21 +36,7 @@ function Quejas(){
             setMunis(getMunicipios(value));
           }
       };  
-  
-      const cargar = React.useCallback(()=>{
-          HttpMan.get(`/get_quejas`).then(resp =>{
-              setQuejas(resp.data);
-          });
 
-          HttpMan.get(`/get_shops`).then(resp =>{
-            setComercios(resp.data);
-         });
-
-         HttpMan.get(`/get_categories`).then(resp =>{
-            setCats(resp.data);
-            });
-
-      }, []);
       
   
       const abrirForm = (data) =>{
@@ -58,13 +44,47 @@ function Quejas(){
           setForm(data);
       }
   
-      const submit = () =>{
-  
+      const submit = async(e) =>{
+            e.preventDefault();
+
+            const f1 = tryParseDate(data["fecha1"]);
+            const f2 = tryParseDate(data["fecha2"]);
+
+            //fechas en utc...
+            if(f1 != null){
+                f1.setHours(0, 0, 0, 0);
+                f1.setDate(f1.getDate()+1);
+            }
+            if(f2 != null){
+                f2.setHours(12*3, 0, 0, 0);
+            }
+      
+
+            const body={
+            "comercio": tryParseNum(data["comercio"]), 
+            "categoria": tryParseNum(data["categoria"]), 
+            "f1": f1, 
+            "f2": f2,
+            "departamento": tryParseNum(data["departamento"]), 
+            "municipio": tryParseNum(data["municipio"])
+          }
+         const resp = await HttpMan.post(`/post_quejas`, body);
+         setQuejas(resp.data);
       }
   
       React.useEffect(()=>{
-          cargar();
-      }, [cargar]);
+            HttpMan.post(`/post_quejas`).then(resp =>{
+                setQuejas(resp.data);
+            });
+
+            HttpMan.get(`/get_shops`).then(resp =>{
+                setComercios(resp.data);
+            });
+
+            HttpMan.get(`/get_categories`).then(resp =>{
+                setCats(resp.data);
+            });
+      }, []);
   
 
 
@@ -203,12 +223,12 @@ function Quejas(){
                         <tbody>
                             {
                                 quejas.map(data =>{
-                                    const {id_queja, nombre_comercio, fecha_queja} = data;
+                                    const {queja_id, comercio_nombre, queja_fecha} = data;
                                     return (
-                                        <tr key={id_queja}>
-                                            <td>{id_queja}</td>
-                                            <td>{nombre_comercio}</td>
-                                            <td>{GT_FORMAT.format(Date.parse(fecha_queja))}</td>
+                                        <tr key={queja_id}>
+                                            <td>{queja_id}</td>
+                                            <td>{comercio_nombre}</td>
+                                            <td>{GT_FORMAT.format(Date.parse(queja_fecha))}</td>
                                             <td className='text-center'>
                                                 <Button variant="info" onClick={()=>abrirForm(data)}>Detalles</Button>
                                             </td>

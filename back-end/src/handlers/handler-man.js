@@ -93,7 +93,11 @@ const getSucursals = async (req, res) =>{
 }
 
 const getQuejas = async (req, res) =>{
-    const resp = await loadQueja();
+    const {comercio, categoria, f1, f2, departamento, municipio} = req.body;
+
+    console.log(req.body);
+
+    const resp = await loadQueja(comercio, categoria, f1, f2, departamento, municipio);
     res.json(resp);
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import GT_FORMAT from '../../util/Util';
+import {GT_FORMAT} from '../../util/DUtil';
 import {Modal, Button, Form, Row, Col} from 'react-bootstrap'
 
 function QuejaModal(props){
@@ -24,7 +24,7 @@ function QuejaModal(props){
                                 <Form.Group className='mb-3'>
                                     <Form.Label>ID Queja</Form.Label>
                                     <Form.Control 
-                                        defaultValue={queja.id_queja}
+                                        defaultValue={queja.queja_id}
                                         disabled={true}
                                     />
                                 </Form.Group>
@@ -33,7 +33,7 @@ function QuejaModal(props){
                                         <Form.Group className='mb-3'>
                                             <Form.Label>Comercio</Form.Label>
                                             <Form.Control 
-                                                defaultValue={queja.nombre_comercio}
+                                                defaultValue={queja.comercio_nombre}
                                                 disabled={true}
                                             />
                                         </Form.Group>
@@ -42,7 +42,7 @@ function QuejaModal(props){
                                         <Form.Group className='mb-3'>
                                             <Form.Label>Sucursal</Form.Label>
                                             <Form.Control 
-                                                defaultValue={queja.nombre_sucursal}
+                                                defaultValue={queja.sucursal_nombre}
                                                 disabled={true}/>
                                         </Form.Group>
                                     </Col>
@@ -52,7 +52,7 @@ function QuejaModal(props){
                                         <Form.Group className='mb-3'>
                                             <Form.Label>Categoria de queja</Form.Label>
                                             <Form.Control 
-                                                defaultValue={queja.categoria}
+                                                defaultValue={queja.queja_categoria}
                                                 disabled={true}
                                             />
                                         </Form.Group>
@@ -60,7 +60,7 @@ function QuejaModal(props){
                                         <Form.Group className='mb-3'>
                                             <Form.Label>Fecha de queja</Form.Label>
                                             <Form.Control 
-                                                defaultValue={queja.fecha_queja == null ? "" : GT_FORMAT.format(Date.parse(queja.fecha_queja))}
+                                                defaultValue={queja.queja_fecha == null ? "" : GT_FORMAT.format(Date.parse(queja.queja_fecha))}
                                                 disabled={true}
                                             />
                                         </Form.Group>
@@ -68,7 +68,7 @@ function QuejaModal(props){
                                 <Form.Group className='mb-3'>
                                     <Form.Label>Queja</Form.Label>
                                     <Form.Control 
-                                        defaultValue={queja.queja}
+                                        defaultValue={queja.queja_text}
                                         as="textarea" 
                                         disabled={true}
                                     />

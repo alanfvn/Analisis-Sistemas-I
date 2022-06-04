@@ -39,9 +39,19 @@ async function loadLocations(){
     return data.rows;
 }
 
-async function loadQueja(){
+async function loadQueja(comercio, cat, f1, f2, dep, muni){
     const client = await conPool.connect();
-    const data = await client.query('select * from lista_quejas');
+    const data = await client.query('select * from filtrar_quejas($1, $2, $3::timestamptz, $4::timestamptz, $5, $6)',
+        [
+            comercio,
+            cat,
+            f1,
+            f2,
+            dep,
+            muni
+        ]
+    );
+
     client.release();
     return data.rows;
 }

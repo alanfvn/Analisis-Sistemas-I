@@ -19,7 +19,7 @@ app.get('/api/get_shops', getShops);
 app.get('/api/get_categories', getCategories);
 app.get('/api/get_locations', getLocations);
 app.get('/api/get_sucursals', getSucursals);
-app.get('/api/get_quejas', getQuejas);
+app.post('/api/post_quejas', getQuejas);
 
 //delete
 app.delete('/api/delete_sucursal', deleteSucursal);
